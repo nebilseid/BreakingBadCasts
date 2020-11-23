@@ -10,15 +10,16 @@ import java.lang.Exception
 
 class DetailViewModel(private val apiService: ApiService) : ViewModel() {
 
-    fun receiveCharacterDetails(id: Int){
+    fun receiveCharacterDetails(id: Int) {
         pullCharacterDetails(id)
     }
+
     private val _characterDetails = MutableLiveData<Resource<List<Character>>>()
     val characterDetails: LiveData<Resource<List<Character>>> get() = _characterDetails
 
     private var charDetails = MutableLiveData<List<Character>>()
 
-    private fun pullCharacterDetails(id: Int){
+    private fun pullCharacterDetails(id: Int) {
         viewModelScope.launch {
             _characterDetails.postValue(Resource.loading(null))
             try {

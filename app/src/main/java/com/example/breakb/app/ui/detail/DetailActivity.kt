@@ -29,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
         ).get(DetailViewModel::class.java)
 
         detailViewModel.characterDetails.observe(this, Observer {
-            when(it.status){
+            when (it.status) {
                 Status.SUCCESS -> {
                     characterDetails = it
                     assignDataToUi(characterDetails)
@@ -47,12 +47,17 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
-    private fun assignDataToUi(character: Resource<List<Character>>){
+    private fun assignDataToUi(character: Resource<List<Character>>) {
         characterNameTv.text = character.data?.get(0)?.name
-        occupationTv.text ="""${resources.getString(R.string.occupation)}: ${character.data?.get(0)?.occupation.toString()}"""
-        statusTv.text ="""${resources.getString(R.string.status)}: ${character.data?.get(0)?.status.toString()}"""
-        nicknameTv.text ="""${resources.getString(R.string.nickname)}: ${character.data?.get(0)?.nickname.toString()}"""
-        seasonAppearanceTv.text ="""${resources.getString(R.string.season_appearances)}: ${character.data?.get(0)?.appearance.toString().toString()}"""
+        occupationTv.text =
+            """${resources.getString(R.string.occupation)}: ${character.data?.get(0)?.occupation.toString()}"""
+        statusTv.text =
+            """${resources.getString(R.string.status)}: ${character.data?.get(0)?.status.toString()}"""
+        nicknameTv.text =
+            """${resources.getString(R.string.nickname)}: ${character.data?.get(0)?.nickname.toString()}"""
+        seasonAppearanceTv.text =
+            """${resources.getString(R.string.season_appearances)}: ${character.data?.get(0)?.appearance.toString()
+                .toString()}"""
         characterImageIv.loadUrl(character.data!![0].img)
 
     }

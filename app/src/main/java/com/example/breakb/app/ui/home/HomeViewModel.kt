@@ -39,7 +39,7 @@ class HomeViewModel(private val apiService: ApiService) : ViewModel() {
     }
 
     fun onFilterSeasonClicked(season: Int) {
-        if(season == 0) {
+        if (season == 0) {
             _characters.postValue(Resource.success(characterList))
         } else {
             viewModelScope.launch {
@@ -56,7 +56,14 @@ class HomeViewModel(private val apiService: ApiService) : ViewModel() {
 
     fun onCharacterNameSearch(name: String) {
         viewModelScope.launch {
-            val filtered =  withContext(Dispatchers.IO) { characterList.filter { character -> character.name.contains(name, true) } }
+            val filtered = withContext(Dispatchers.IO) {
+                characterList.filter { character ->
+                    character.name.contains(
+                        name,
+                        true
+                    )
+                }
+            }
             if (filtered.isNotEmpty()) {
                 _characters.postValue(Resource.success(filtered))
             } else {
@@ -64,17 +71,19 @@ class HomeViewModel(private val apiService: ApiService) : ViewModel() {
             }
         }
     }
-    private fun findBySeason(season: Int) : List<Character> {
-        val filtered:MutableList<Character> = mutableListOf()
-        for(charc in characterList) {
-            if(charc.appearance != null) {
-                if(charc.appearance.contains(season)) {
+
+    private fun findBySeason(season: Int): List<Character> {
+        val filtered: MutableList<Character> = mutableListOf()
+        for (charc in characterList) {
+            if (charc.appearance != null) {
+                if (charc.appearance.contains(season)) {
                     filtered.add(charc)
                 }
             }
         }
         return filtered.toList()
     }
+
     fun onItemClicked(item: Character) {
         _navigateToDetail.value = Event(item.char_id)
     }

@@ -26,12 +26,12 @@ class HomeAdapter(private val listener: CharacterClickListener) :
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val character = characterList[position]
         holder.bind(character)
-        holder.itemView.setOnClickListener{ listener(character) }
+        holder.itemView.setOnClickListener { listener(character) }
     }
 
     override fun getItemCount(): Int = characterList.size
 
-    class HomeViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemCharacterBinding.bind(itemView)
         fun bind(character: Character) {
             with(binding) {

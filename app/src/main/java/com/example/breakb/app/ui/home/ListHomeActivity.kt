@@ -42,7 +42,7 @@ class ListHomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         ).get(HomeViewModel::class.java)
 
         viewModel.characters.observe(this, Observer {
-            when(it.status) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     binding.progress.visibility = View.GONE
                     it.data?.let { characters -> adapter.characterList = characters }
@@ -59,7 +59,7 @@ class ListHomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         })
 
         viewModel.navigateToDetail.observe(this, Observer {
-            navigateToDetail(it.getContentIfNotHandled()?: 0)
+            navigateToDetail(it.getContentIfNotHandled() ?: 0)
         })
     }
 
@@ -69,7 +69,7 @@ class ListHomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val season = when(item.itemId) {
+        val season = when (item.itemId) {
             R.id.filter1 -> 1
             R.id.filter2 -> 2
             R.id.filter3 -> 3
@@ -93,14 +93,14 @@ class ListHomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun search(searchTerm: String?) {
         Log.d(TAG, "search: $searchTerm")
-        viewModel.onCharacterNameSearch(searchTerm?: "")
+        viewModel.onCharacterNameSearch(searchTerm ?: "")
     }
 
     private fun navigateToDetail(itemId: Int) {
         startActivity<DetailActivity>(DetailActivity.EXTRA_ID to itemId)
     }
 
-    companion object{
+    companion object {
         const val TAG = "_TAG"
     }
 }
